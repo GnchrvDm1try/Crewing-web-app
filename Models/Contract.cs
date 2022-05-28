@@ -10,6 +10,7 @@ namespace Crewing.Models
         public int Employeeid { get; set; }
         public DateOnly Conclusiondate { get; set; }
         public int Vacancyid { get; set; }
+        public string? Status { get; set; }
 
         public virtual Client Client { get; set; } = null!;
         public virtual Employee Employee { get; set; } = null!;

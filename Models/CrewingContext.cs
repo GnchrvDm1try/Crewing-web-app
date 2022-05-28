@@ -25,7 +25,7 @@ namespace Crewing.Models
         public virtual DbSet<EmployeePost> EmployeePosts { get; set; } = null!;
         public virtual DbSet<Employer> Employers { get; set; } = null!;
         public virtual DbSet<Language> Languages { get; set; } = null!;
-        public virtual DbSet<LanguagesClient> LanguagesClients { get; set; } = null!;
+        public virtual DbSet<LanguageClient> LanguageClients { get; set; } = null!;
         public virtual DbSet<Post> Posts { get; set; } = null!;
         public virtual DbSet<Requirement> Requirements { get; set; } = null!;
         public virtual DbSet<Review> Reviews { get; set; } = null!;
@@ -77,7 +77,7 @@ namespace Crewing.Models
 
             modelBuilder.Entity<Client>(entity =>
             {
-                entity.ToTable("clients");
+                entity.ToTable("client");
 
                 entity.HasIndex(e => e.Email, "clients_email_key")
                     .IsUnique();
@@ -85,7 +85,9 @@ namespace Crewing.Models
                 entity.HasIndex(e => e.Phonenumber, "clients_phonenumber_key")
                     .IsUnique();
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("nextval('clients_id_seq'::regclass)");
 
                 entity.Property(e => e.Bio)
                     .HasMaxLength(1000)
@@ -148,6 +150,10 @@ namespace Crewing.Models
                 entity.Property(e => e.Conclusiondate).HasColumnName("conclusiondate");
 
                 entity.Property(e => e.Employeeid).HasColumnName("employeeid");
+
+                entity.Property(e => e.Status)
+                    .HasMaxLength(50)
+                    .HasColumnName("status");
 
                 entity.Property(e => e.Vacancyid).HasColumnName("vacancyid");
 
@@ -294,24 +300,26 @@ namespace Crewing.Models
 
             modelBuilder.Entity<Language>(entity =>
             {
-                entity.ToTable("languages");
+                entity.ToTable("language");
 
                 entity.HasIndex(e => e.Name, "languages_name_key")
                     .IsUnique();
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("nextval('languages_id_seq'::regclass)");
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(30)
                     .HasColumnName("name");
             });
 
-            modelBuilder.Entity<LanguagesClient>(entity =>
+            modelBuilder.Entity<LanguageClient>(entity =>
             {
                 entity.HasKey(e => new { e.Clientid, e.Languageid })
                     .HasName("languages_clients_pkey");
 
-                entity.ToTable("languages_clients");
+                entity.ToTable("language_client");
 
                 entity.Property(e => e.Clientid).HasColumnName("clientid");
 
@@ -322,13 +330,13 @@ namespace Crewing.Models
                     .HasColumnName("level");
 
                 entity.HasOne(d => d.Client)
-                    .WithMany(p => p.LanguagesClients)
+                    .WithMany(p => p.LanguageClients)
                     .HasForeignKey(d => d.Clientid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("languages_clients_clientid_fkey");
 
                 entity.HasOne(d => d.Language)
-                    .WithMany(p => p.LanguagesClients)
+                    .WithMany(p => p.LanguageClients)
                     .HasForeignKey(d => d.Languageid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("languages_clients_languageid_fkey");
@@ -337,6 +345,9 @@ namespace Crewing.Models
             modelBuilder.Entity<Post>(entity =>
             {
                 entity.ToTable("post");
+
+                entity.HasIndex(e => e.Name, "post_name_key")
+                    .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -457,7 +468,7 @@ namespace Crewing.Models
                 entity.HasKey(e => e.Internationalnumber)
                     .HasName("vessels_pkey");
 
-                entity.ToTable("vessels");
+                entity.ToTable("vessel");
 
                 entity.Property(e => e.Internationalnumber)
                     .HasMaxLength(15)
@@ -492,12 +503,16 @@ namespace Crewing.Models
                 entity.HasOne(d => d.Vesseltype)
                     .WithMany(p => p.Vessels)
                     .HasForeignKey(d => d.Vesseltypeid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("vessels_vesseltypeid_fkey");
             });
 
             modelBuilder.Entity<Vesseltype>(entity =>
             {
                 entity.ToTable("vesseltype");
+
+                entity.HasIndex(e => e.Name, "vesseltype_name_key")
+                    .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
 

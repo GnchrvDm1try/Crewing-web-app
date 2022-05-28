@@ -7,12 +7,12 @@ namespace Crewing.Models
     {
         public Language()
         {
-            LanguagesClients = new HashSet<LanguagesClient>();
+            LanguageClients = new HashSet<LanguageClient>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; } = null!;
 
-        public virtual ICollection<LanguagesClient> LanguagesClients { get; set; }
+        public virtual ICollection<LanguageClient> LanguageClients { get; set; }
     }
 }

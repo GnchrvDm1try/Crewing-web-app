@@ -9,7 +9,7 @@ namespace Crewing.Models
         {
             Contracts = new HashSet<Contract>();
             Documents = new HashSet<Document>();
-            LanguagesClients = new HashSet<LanguagesClient>();
+            LanguageClients = new HashSet<LanguageClient>();
             Reviews = new HashSet<Review>();
         }
 
@@ -30,7 +30,7 @@ namespace Crewing.Models
 
         public virtual ICollection<Contract> Contracts { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
-        public virtual ICollection<LanguagesClient> LanguagesClients { get; set; }
+        public virtual ICollection<LanguageClient> LanguageClients { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
     }
 }

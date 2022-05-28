@@ -16,10 +16,10 @@ namespace Crewing.Models
         public string Companyname { get; set; } = null!;
         public string Internationalnumber { get; set; } = null!;
         public string? Status { get; set; }
-        public int? Vesseltypeid { get; set; }
+        public int Vesseltypeid { get; set; }
 
         public virtual Employer CompanynameNavigation { get; set; } = null!;
-        public virtual Vesseltype? Vesseltype { get; set; }
+        public virtual Vesseltype Vesseltype { get; set; } = null!;
         public virtual ICollection<Agreement> Agreements { get; set; }
     }
 }

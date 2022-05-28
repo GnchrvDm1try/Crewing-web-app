@@ -13,8 +13,8 @@ namespace Crewing.Models
 
         public string Companyname { get; set; } = null!;
         public double? Rating { get; set; }
-        public string? Email { get; set; }
-        public string? Phonenumber { get; set; }
+        public string Email { get; set; } = null!;
+        public string Phonenumber { get; set; } = null!;
 
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<Vessel> Vessels { get; set; }
