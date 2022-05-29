@@ -1,0 +1,123 @@
+﻿form
+{
+    width: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    text-align: center;
+    color: black;
+}
+
+form > *:not(.hint):not(input[type=tel]):not(:last-child)
+{
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+form .hint
+{
+    color: grey;
+    font-size: 15px;
+    margin: 0;
+}
+
+form input[type=text],
+form input[type=tel],
+form input[type=password],
+form input[type=email]
+{
+    width: 250px;
+}
+
+input, textarea
+{
+    font-size: 17px;
+    border: 0;
+    border-bottom: 2px rgb(50, 50, 50) solid;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+textarea
+{
+    width: 80%;
+    border: 1px rgb(50, 50, 50) solid;
+}
+
+.formcontainer
+{
+    display: none;
+    position: absolute;
+    top: calc(50% - 350px);
+    left: calc(50% - 175px);
+    margin: 0;
+    margin: 0 auto;
+    background-color: rgb(221, 221, 221);
+    border-radius: 20px;
+    width: 350px;
+}
+
+.windowswitcher
+{
+    display: flex;
+}
+
+.windowswitcher button
+{
+    margin: 0;
+    width: 50%;
+    border-radius: 0;
+    border: 2px solid;
+}
+
+.windowswitcher button:hover
+{
+    background-color: rgb(75, 75, 75);
+    color: white;
+}
+
+.windowswitcher button:first-child
+{
+    border-top-left-radius: 20px;
+    border-bottom: 2px solid;
+}
+
+.windowswitcher button:first-child:hover
+{
+    border-top: 1px solid;
+    border-left: 1px solid;
+}
+
+.windowswitcher button:last-child
+{
+    border-top-right-radius: 20px;
+    border-bottom: 2px solid;
+}
+
+#popupdiv
+{
+    display: none;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    top: 0%;
+}
+
+#popupdiv img
+{
+    width: 20px;
+    height: 20px;
+}
+
+#popupdiv > button
+{
+    position: relative;
+    top: calc(50% - 389px);
+    left: calc(50% + 175px);
+}
+
+#popupdiv > button:hover
+{
+    border: 4px solid;
+}
