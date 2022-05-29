@@ -34,7 +34,8 @@ main
     border-bottom: 2px solid;
 }
 
-#footerbar {
+#footerbar
+{
     justify-content: center;
     height: 40px;
     border-top: 2px solid;

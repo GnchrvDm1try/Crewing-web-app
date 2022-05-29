@@ -59,7 +59,7 @@ tr:nth-child(odd)
     background-color: rgb(128, 215, 255);
 }
 
-tr:nth-child(1)
+th
 {
     background-color: rgb(40, 187, 255);
     font-weight: bold;
@@ -72,12 +72,14 @@ td
     padding: 3px;
 }
 
-td:first-child
+td:first-child,
+th:first-child
 {
     border-radius: 7px 0 0 7px;
 }
 
-td:last-child
+td:last-child,
+th:last-child
 {
     border-radius: 0 7px 7px 0;
 }
