@@ -446,7 +446,9 @@ namespace Crewing.Models
                     .HasColumnType("money")
                     .HasColumnName("salary");
 
-                entity.Property(e => e.Term).HasColumnName("term");
+                entity.Property(e => e.Term)
+                    .HasMaxLength(50)
+                    .HasColumnName("term");
 
                 entity.Property(e => e.Workersamount).HasColumnName("workersamount");
 

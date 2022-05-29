@@ -17,7 +17,7 @@ namespace Crewing.Models
         public short Workersamount { get; set; }
         public decimal Salary { get; set; }
         public string? Description { get; set; }
-        public TimeSpan Term { get; set; }
+        public string Term { get; set; } = null!;
 
         public virtual Agreement AgreementnumberNavigation { get; set; } = null!;
         public virtual Sailorpost Sailorpost { get; set; } = null!;
