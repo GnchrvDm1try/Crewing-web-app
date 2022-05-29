@@ -1,0 +1,212 @@
+main>p
+{
+    text-align: center;
+}
+
+main>*:not(.homepagetitle):not(.formcontainer)
+{
+    margin: 0 50px;
+}
+
+button,
+li a
+{
+    padding: 5px 10px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0);
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button.white,
+li a
+{
+    background-color: white;
+    color: black;
+}
+
+button.white:hover,
+li a:hover
+{
+    background-color: rgb(75, 75, 75);
+    color: white;
+}
+
+li a
+{
+    text-decoration: none;
+}
+
+table
+{
+    background-color: black;
+    border-spacing: 2px;
+    border-radius: 9px;
+    width: calc(100% - 100px);
+    color: black;
+    font-size: 20px;
+}
+
+tr:nth-child(even)
+{
+    background-color: rgb(194, 236, 255);
+}
+
+tr:nth-child(odd)
+{
+    background-color: rgb(128, 215, 255);
+}
+
+tr:nth-child(1)
+{
+    background-color: rgb(40, 187, 255);
+    font-weight: bold;
+    font-size: 25px;
+}
+
+td
+{
+    text-align: center;
+    padding: 3px;
+}
+
+td:first-child
+{
+    border-radius: 7px 0 0 7px;
+}
+
+td:last-child
+{
+    border-radius: 0 7px 7px 0;
+}
+
+.homepagetitle
+{
+    text-align: center;
+}
+
+.homepagetitle p{
+    font-size: 22px;
+    padding: 0 50px;
+}
+
+.homepagetitle h1
+{
+    padding: 400px 50px;
+    margin: 0;
+    text-shadow: 3px 3px 3px black;
+    background-size:cover;
+}
+
+.homepagetitle:nth-of-type(1) h1 {
+    background-image: url('../static data/app pictures/sea.jpg');
+    box-shadow: inset 0 -100px 60px rgb(75, 75, 75);
+}
+
+.homepagetitle:nth-of-type(2) h1
+{
+    background-image: url('../static data/app pictures/vessel.jpg');
+    box-shadow: inset 0 100px 60px rgb(75, 75, 75), inset 0 -100px 60px rgb(75, 75, 75);
+}
+
+.horizontallist
+{
+    display: flex;
+    list-style: none;
+}
+
+.horizontallist > *
+{
+    padding: 10px;
+}
+
+.vacancyheader:not(:first-child)
+{
+    margin-top: 30px;
+}
+
+.vacancyheader:not(:last-child)
+{
+    border-bottom: 2px white dashed;
+}
+
+.vacancyheader a
+{
+    margin: 10px;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.vacancyheader a:hover,
+.vacancy a p:hover
+{
+    background-color: rgb(92, 92, 92);
+}
+
+.vacancyheader a p
+{
+    margin: 0 0 15px 0;
+    font-size: 25px;
+}
+
+.vacancyheader a h3
+{
+    margin: 0;
+}
+
+.vacancyheader a img
+{
+    width: 200px;
+    height: 129px;
+    object-fit: cover;
+}
+
+.vacancy h1
+{
+    text-align: center;
+}
+
+.vacancy h2
+{
+    margin-bottom: 10px;
+}
+
+.vacancy p
+{
+    font-size: 25px;
+    margin-top: 0;
+}
+
+.vacancy a
+{
+    color: white;
+    text-decoration: none;
+    font-style: oblique;
+}
+
+.userprofile
+{
+    display: flex;
+    padding: 40px;
+    
+}
+
+.columnofhalf
+{
+    width: 50%;
+}
+
+.columnofhalf p
+{
+    font-size: 23px;
+    margin: 0;
+}
+
+.columnofhalf h2
+{
+    margin-bottom: 10px;
+}
