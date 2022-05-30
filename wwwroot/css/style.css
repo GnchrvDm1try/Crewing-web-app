@@ -117,6 +117,7 @@ th:last-child
 {
     display: flex;
     list-style: none;
+    padding: 0;
 }
 
 .horizontallist > *
@@ -155,7 +156,8 @@ th:last-child
     font-size: 25px;
 }
 
-.vacancyheader a h3
+.vacancyheader a h3,
+.vacancy h2
 {
     margin: 0;
     color: rgb(196, 196, 196);
@@ -189,6 +191,28 @@ th:last-child
     color: white;
     text-decoration: none;
     font-style: oblique;
+}
+
+.inforow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.infoblock {
+    width: 45%;
+}
+
+.horizontalinfoseparator {
+    height: 5px;
+    width: 100%;
+    border-radius: 2px;
+    background-color: white;
+}
+
+.verticalinfoseparator {
+    width: 5px;
+    border-radius: 2px;
+    background-color: white;
 }
 
 .userprofile

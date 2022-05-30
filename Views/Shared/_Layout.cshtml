@@ -14,10 +14,12 @@
             <div id="crewingsign">
                 <a asp-controller="Home" asp-action="Index"><h1>Crewing: Search and find</h1></a>
             </div>
-            <ul class="horizontallist">
-                <li><a asp-controller="Vacancy" asp-action="Preview" >Vacancies</a></li>
-                <li><a href="">Companies</a></li>
-            </ul>
+            <div id="centerdiv">
+                <ul class="horizontallist">
+                    <li><a asp-controller="Vacancy" asp-action="Preview" >Vacancies</a></li>
+                    <li><a href="">Companies</a></li>
+                </ul>
+            </div>
             <ul class="horizontallist">
                 <li><button class="white" onclick="AuthFormPopup(false)">Login</button></li>
                 <li><button class="white" onclick="AuthFormPopup(true)">Register</button></li>
@@ -88,7 +90,7 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/authFormScript.js" asp-append-version="true"></script>
+    @*<script src="~/js/authFormScript.js" asp-append-version="true"></script>*@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
