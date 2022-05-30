@@ -11,14 +11,28 @@
 <div class="vacanciesdiv">
     @foreach (var item in Model)
     {
-
-                //@Html.DisplayFor(modelItem => item.Workersamount)
-                //@Html.DisplayFor(modelItem => item.Description)
-                //@Html.DisplayFor(modelItem => item.AgreementnumberNavigation.Agreementnumber)
-                
-                
-                //<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                //<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                //<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+        <div class="vacancyheader">
+            <a asp-action="Details" asp-route-id="@item.Id">
+                <div>
+                    <h3>Должность моряка</h3>
+                    <p>@item.Sailorpost.Name</p>
+                    <h3>Оклад</h3>
+                    <p>@item.Salary</p>
+                </div>
+                <div>
+                    <h3>Название компании</h3>
+                    <p>@item.AgreementnumberNavigation.VesselnumberNavigation.Companyname</p>
+                    <h3>Рейтинг компании</h3>
+                    <p>@item.AgreementnumberNavigation.VesselnumberNavigation.CompanynameNavigation.Rating</p>
+                </div>
+                <div>
+                    <h3>Название судна</h3>
+                    <p>@item.AgreementnumberNavigation.VesselnumberNavigation.Vesselname</p>
+                    <h3>Рабочий срок</h3>
+                    <p>@item.Term</p>
+                </div>
+                <img src="ship.jpeg" alt="failed to load the image">
+            </a>
+        </div>
     }
 </div>

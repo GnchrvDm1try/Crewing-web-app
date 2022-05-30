@@ -21,7 +21,9 @@ namespace Crewing.Controllers
         // GET: Vacancy
         public async Task<IActionResult> Preview()
         {
-            var crewingContext = context.Vacancies.Include(v => v.AgreementnumberNavigation).Include(v => v.Sailorpost);
+            var crewingContext = context.Vacancies
+                .Include(v => v.Sailorpost)
+                .Include(v => v.AgreementnumberNavigation.VesselnumberNavigation.CompanynameNavigation);
             return View(await crewingContext.ToListAsync());
         }
 
