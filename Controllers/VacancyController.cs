@@ -36,9 +36,11 @@ namespace Crewing.Controllers
             }
 
             var vacancy = await context.Vacancies
-                .Include(v => v.AgreementnumberNavigation)
                 .Include(v => v.Sailorpost)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(v => v.Requirements)
+                .Include(v => v.AgreementnumberNavigation.VesselnumberNavigation.Vesseltype)
+                .Include(v => v.AgreementnumberNavigation.VesselnumberNavigation.CompanynameNavigation)
+                .FirstOrDefaultAsync(v => v.Id == id);
             if (vacancy == null)
             {
                 return NotFound();
