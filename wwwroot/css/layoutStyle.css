@@ -19,6 +19,11 @@ main
     font-size: large;
 }
 
+a
+{
+    text-decoration: none;
+}
+
 .fullsizebar
 {
     width: 100%;

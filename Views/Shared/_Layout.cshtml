@@ -12,10 +12,10 @@
     <header>
         <div class="fullsizebar" id="headerbar">
             <div id="crewingsign">
-                <h1>Crewing: Search and find</h1>
+                <a asp-controller="Home" asp-action="Index"><h1>Crewing: Search and find</h1></a>
             </div>
             <ul class="horizontallist">
-                <li><a href="">Vacancies</a></li>
+                <li><a asp-controller="Vacancy" asp-action="Preview" >Vacancies</a></li>
                 <li><a href="">Companies</a></li>
             </ul>
             <ul class="horizontallist">
@@ -24,60 +24,60 @@
             </ul>
         </div>
     </header>
-        <div id="popupdiv">
-            <button onclick="AuthFormClose()"><img src="~/static data/app icons/close_round_icon.svg" alt="close"></button>
-            <div class="formcontainer" id="clientregdiv">
-                <div class="windowswitcher">
-                    <button onclick="AuthFormSwitch(true)">Ищу<br>работу</button>
-                    <button onclick="AuthFormSwitch(false)">Предлагаю<br>работу</button>
+    <div id="popupdiv">
+        <button onclick="AuthFormClose()"><img src="~/static data/app icons/close_round_icon.svg" alt="close"></button>
+        <div class="formcontainer" id="clientregdiv">
+            <div class="windowswitcher">
+                <button onclick="AuthFormSwitch(true)">Ищу<br>работу</button>
+                <button onclick="AuthFormSwitch(false)">Предлагаю<br>работу</button>
+            </div>
+            <form action="#" method="post">
+                <h3>Введите Ваши персональные данные для регистрации</h3>
+                <input type="text" name="firstname" placeholder="Ваше имя" required>
+                <input type="text" name="lastname" placeholder="Ваша фамилия" required>
+                <input type="email" name="email" placeholder="Эл. почта" required>
+                <input type="tel" name="phone" placeholder="Номер телефона" pattern="\+380[0-9]{9}" required>
+                <p class="hint">+380XXXXXXXXX</p>
+                <div style="margin: 25px 0">
+                    <p class="hint">Пол</p>
+                    <input type="radio" id="malegender" name="gender" value="male" required>
+                    <label for="malegender">Мужской</label>
+                    <br>
+                    <input type="radio" id="femalegender" name="gender" value="female" required>
+                    <label for="femalegender">Женский</label>
                 </div>
-                <form action="#" method="post">
-                    <h3>Введите Ваши персональные данные для регистрации</h3>
-                    <input type="text" name="firstname" placeholder="Ваше имя" required>
-                    <input type="text" name="lastname" placeholder="Ваша фамилия" required>
-                    <input type="email" name="email" placeholder="Эл. почта" required>
-                    <input type="tel" name="phone" placeholder="Номер телефона" pattern="\+380[0-9]{9}" required>
-                    <p class="hint">+380XXXXXXXXX</p>
-                    <div style="margin: 25px 0">
-                        <p class="hint">Пол</p>
-                        <input type="radio" id="malegender" name="gender" value="male" required>
-                        <label for="malegender">Мужской</label>
-                        <br>
-                        <input type="radio" id="femalegender" name="gender" value="female" required>
-                        <label for="femalegender">Женский</label>
-                    </div>
-                    <p class="hint">Дата рождения</p>
-                    <input type="date" name="birthdate" required>
-                    <input type="password" name="password" placeholder="Пароль" required>
-                    <input type="password" name="confirmedpassword" placeholder="Повторите пароль" required>
-                    <button type="submit" class="white">Регистрация</button>
-                </form>
-            </div>
-            <div class="formcontainer" id="employerregdiv">
-                <div class="windowswitcher">
-                    <button onclick="AuthFormSwitch(true)">Ищу<br>работу</button>
-                    <button onclick="AuthFormSwitch(false)">Предлагаю<br>работу</button>
-                </div>
-                <form action="#" method="post">
-                    <h3>Введите Ваши персональные данные для регистрации</h3>
-                    <input type="text" name="companyname" placeholder="Название компании" required>
-                    <input type="email" name="email" placeholder="Эл. почта" required>
-                    <input type="tel" name="phone" placeholder="Номер телефона" pattern="\+380[0-9]{9}" required>
-                    <p class="hint">+380XXXXXXXXX</p>
-                    <input type="password" name="password" placeholder="Пароль" required style="margin: 25px 0">
-                    <input type="password" name="confirmedpassword" placeholder="Повторите пароль" required>
-                    <button type="submit" class="white">Регистрация</button>
-                </form>
-            </div>
-            <div class="formcontainer" id="userlogindiv">    
-                <form action="#" method="post">
-                    <h3>Введите Ваши персональные данные для входа</h3>
-                    <input type="text" name="email" placeholder="Эл. почта или номер телефона" required>
-                    <input type="password" name="password" placeholder="Пароль" required>
-                    <button type="submit" class="white">Вход</button>
-                </form>
-            </div>
+                <p class="hint">Дата рождения</p>
+                <input type="date" name="birthdate" required>
+                <input type="password" name="password" placeholder="Пароль" required>
+                <input type="password" name="confirmedpassword" placeholder="Повторите пароль" required>
+                <button type="submit" class="white">Регистрация</button>
+            </form>
         </div>
+        <div class="formcontainer" id="employerregdiv">
+            <div class="windowswitcher">
+                <button onclick="AuthFormSwitch(true)">Ищу<br>работу</button>
+                <button onclick="AuthFormSwitch(false)">Предлагаю<br>работу</button>
+            </div>
+            <form action="#" method="post">
+                <h3>Введите Ваши персональные данные для регистрации</h3>
+                <input type="text" name="companyname" placeholder="Название компании" required>
+                <input type="email" name="email" placeholder="Эл. почта" required>
+                <input type="tel" name="phone" placeholder="Номер телефона" pattern="\+380[0-9]{9}" required>
+                <p class="hint">+380XXXXXXXXX</p>
+                <input type="password" name="password" placeholder="Пароль" required style="margin: 25px 0">
+                <input type="password" name="confirmedpassword" placeholder="Повторите пароль" required>
+                <button type="submit" class="white">Регистрация</button>
+            </form>
+        </div>
+        <div class="formcontainer" id="userlogindiv">    
+            <form action="#" method="post">
+                <h3>Введите Ваши персональные данные для входа</h3>
+                <input type="text" name="email" placeholder="Эл. почта или номер телефона" required>
+                <input type="password" name="password" placeholder="Пароль" required>
+                <button type="submit" class="white">Вход</button>
+            </form>
+        </div>
+    </div>
     <main role="main" class="pb-3">
         @RenderBody()
     </main>

@@ -36,6 +36,10 @@ namespace Crewing
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            app.MapControllerRoute(
+                name: "vacancyDefault",
+                pattern: "{controller=Vacancy}/{action=Preview}");
+
             app.Run();
         }
     }
