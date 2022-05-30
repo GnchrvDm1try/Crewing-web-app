@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Crewing.Models.Vacancy>
+
+@{
+    ViewData["Title"] = "Preview vacancies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="vacanciesdiv">
+    @foreach (var item in Model)
+    {
+
+                //@Html.DisplayFor(modelItem => item.Workersamount)
+                //@Html.DisplayFor(modelItem => item.Description)
+                //@Html.DisplayFor(modelItem => item.AgreementnumberNavigation.Agreementnumber)
+                
+                
+                //<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                //<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                //<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+    }
+</div>

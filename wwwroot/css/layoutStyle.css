@@ -17,6 +17,7 @@ main
     background-color: rgb(75, 75, 75);
     color: white;
     font-size: large;
+    min-height: calc(100vh - 100px);
 }
 
 a
