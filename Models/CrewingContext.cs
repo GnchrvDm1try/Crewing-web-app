@@ -220,12 +220,19 @@ namespace Crewing.Models
             {
                 entity.ToTable("employee");
 
+                entity.HasIndex(e => e.Email, "employee_email_key")
+                    .IsUnique();
+
                 entity.HasIndex(e => e.Phonenumber, "employee_phonenumber_key")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Birthdate).HasColumnName("birthdate");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .HasColumnName("email");
 
                 entity.Property(e => e.Firstname)
                     .HasMaxLength(20)

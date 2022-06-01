@@ -17,6 +17,7 @@ namespace Crewing.Models
         public string Lastname { get; set; } = null!;
         public string Phonenumber { get; set; } = null!;
         public DateOnly Birthdate { get; set; }
+        public string Email { get; set; } = null!;
 
         public virtual ICollection<Agreement> Agreements { get; set; }
         public virtual ICollection<Contract> Contracts { get; set; }
