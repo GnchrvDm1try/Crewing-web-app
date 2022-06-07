@@ -1,0 +1,27 @@
+﻿@model Crewing.Models.EmployerRegisterModel
+
+@{
+    ViewData["Title"] = "Employer register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ <div class="formcontainer" id="employerregdiv">
+    <div class="windowswitcher">
+        <a asp-controller="Account" asp-action="ClientRegister">Ищу<br>работу</a>
+        <a asp-controller="Account" asp-action="EmployerRegister">Предлагаю<br>работу</a>
+    </div>
+    <form asp-controller="Account" asp-action="EmployerRegister" method="post">
+        <h3>Введите Ваши персональные данные для регистрации</h3>
+        <input asp-for="CompanyName" type="text" name="companyname" placeholder="Название компании" required>
+        <input asp-for="Email" type="email" name="email" placeholder="Эл. почта" required>
+        <input asp-for="PhoneNumber" type="tel" name="phonenumber" placeholder="Номер телефона" pattern="\+380[0-9]{9}" required>
+        <p class="hint" style="margin-bottom: 25px">+380XXXXXXXXX</p>
+        <input asp-for="Password" type="password" name="password" placeholder="Пароль" required>
+        <input asp-for="ConfirmedPassword" type="password" name="confirmedpassword" placeholder="Повторите пароль" required>
+        <button type="submit" class="white">Регистрация</button>
+    </form>
+    @if(ViewBag.IsValid == false)
+    {
+        @Html.ValidationSummary()
+    }
+</div>
