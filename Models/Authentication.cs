@@ -2,67 +2,67 @@
 
 namespace Crewing.Models
 {
-    public abstract class UserRegisterModel
+    public abstract class EntityRegisterModel
     {
-        [Required]
+        [Required(ErrorMessage = "You must provide an email")]
         [DataType(DataType.EmailAddress)]
-        [MaxLength(50)]
-        [MinLength(5)]
+        [MinLength(5, ErrorMessage = "The length of the email has to be 5 or more characters")]
+        [MaxLength(50, ErrorMessage = "The length of the email has to be 50 or fewer characters")]
         public string? Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You must provide a mobile phone number")]
         [DataType(DataType.PhoneNumber)]
-        [StringLength(13)]
+        [StringLength(13, MinimumLength = 13, ErrorMessage = "The mobile phone number has to be 13 characters long")]
         public string? PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You must provide a password")]
         [DataType(DataType.Password)]
-        [MinLength(8)]
-        [MaxLength(50)]
+        [MinLength(8, ErrorMessage = "The length of the password has to be 8 or more characters")]
+        [MaxLength(50, ErrorMessage = "The length of the password has to be 50 or fewer characters")]
         public string? Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You must confirm a password")]
         [DataType(DataType.Password)]
-        [Compare("Password")]
+        [Compare("Password", ErrorMessage = "Passwords do not match")]
         public string? ConfirmedPassword { get; set; }
     }
 
-    public class ClientRegisterModel : UserRegisterModel
+    public class ClientRegisterModel : EntityRegisterModel
     {
-        [Required]
-        [MinLength(2)]
-        [MaxLength(20)]
+        [Required(ErrorMessage = "You must provide your first name")]
+        [MinLength(2, ErrorMessage = "The first name has to be 2 characters or more")]
+        [MaxLength(20, ErrorMessage = "The first name has to be no more than 20 characters long")]
         public string? FirstName { get; set; }
 
-        [Required]
-        [MinLength(2)]
-        [MaxLength(30)]
+        [Required(ErrorMessage = "You must provide your last name")]
+        [MinLength(2, ErrorMessage = "The last name has to be 2 characters or more")]
+        [MaxLength(30, ErrorMessage = "The last name has to be no more than 30 characters long")]
         public string? LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You must provide your sex")]
         public bool IsMale { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You must provide your date of birth")]
         [DataType(DataType.Date)]
-        public DateOnly BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 
-    public class EmployerRegisterModel : UserRegisterModel
+    public class EmployerRegisterModel : EntityRegisterModel
     {
-        [Required]
-        [MinLength(2)]
-        [MaxLength(30)]
+        [Required(ErrorMessage = "You must provide the name of the company")]
+        [MinLength(2, ErrorMessage = "The company name has to be 2 characters or more")]
+        [MaxLength(30, ErrorMessage = "The company name has to be no more than 30 characters long")]
         public string? CompanyName { get; set; }
     }
 
     public class UserLoginModel
     {
-        [Required]
-        [MinLength(5)]
+        [Required(ErrorMessage = "You must provide an email or mobile phone number")]
+        [MinLength(5, ErrorMessage = "")]
         [MaxLength(50)]
         public string? EmailOrPhone { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You must provide a password")]
         [DataType(DataType.Password)]
         public string? Password { get; set; }
     }
