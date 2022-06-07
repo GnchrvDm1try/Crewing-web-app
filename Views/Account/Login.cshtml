@@ -1,0 +1,19 @@
+﻿@model Crewing.Models.UserLoginModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ <div class="formcontainer" id="userlogindiv">    
+    <form asp-controller="Account" asp-action="Login" method="post">
+        <h3>Введите Ваши персональные данные для входа</h3>
+        <input asp-for="EmailOrPhone" type="text" name="emailorphone" placeholder="Эл. почта или номер телефона" required>
+        <input asp-for="Password" type="password" name="password" placeholder="Пароль" required>
+        <button type="submit" class="white">Вход</button>
+    </form>
+    @if(ViewBag.IsValid == false)
+    {
+        @Html.ValidationSummary()
+    }
+</div>
