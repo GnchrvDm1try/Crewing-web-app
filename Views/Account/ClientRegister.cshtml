@@ -1,0 +1,38 @@
+﻿@model Crewing.Models.ClientRegisterModel
+
+@{
+    ViewData["Title"] = "Client register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="formcontainer" id="clientregdiv">
+    <div class="windowswitcher">
+        <a asp-controller="Account" asp-action="ClientRegister">Ищу<br>работу</a>
+        <a asp-controller="Account" asp-action="EmployerRegister">Предлагаю<br>работу</a>
+    </div>
+    <form asp-controller="Account" asp-action="ClientRegister" method="post">
+        <h3>Введите Ваши персональные данные для регистрации</h3>
+        <input asp-for="FirstName" type="text" name="firstname" placeholder="Ваше имя" required>
+        <input asp-for="LastName" type="text" name="lastname" placeholder="Ваша фамилия" required>
+        <input asp-for="Email" type="email" name="email" placeholder="Эл. почта" required>
+        <input asp-for="PhoneNumber" type="tel" name="phonenumber" placeholder="Номер телефона" pattern="\+380[0-9]{9}" required>
+        <p class="hint">+380XXXXXXXXX</p>
+        <div style="margin: 25px 0">
+            <p class="hint">Пол</p>
+            <input asp-for="IsMale" type="radio" id="malegender" name="ismale" value="@true" required>
+            <label for="malegender">Мужской</label>
+            <br>
+            <input asp-for="IsMale" type="radio" id="femalegender" name="ismale" value="@false" required>
+            <label for="femalegender">Женский</label>
+        </div>
+        <p class="hint">Дата рождения</p>
+        <input asp-for="BirthDate" type="date" name="birthdate" min="1930-01-01" max="2008-12-31" required>
+        <input asp-for="Password" type="password" name="password" placeholder="Пароль" required>
+        <input asp-for="ConfirmedPassword" type="password" name="confirmedpassword" placeholder="Повторите пароль" required>
+        <button type="submit" class="white">Регистрация</button>
+    </form>
+    @if(ViewBag.IsValid == false)
+    {
+        @Html.ValidationSummary()
+    }
+</div>
