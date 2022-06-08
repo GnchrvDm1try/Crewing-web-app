@@ -58,8 +58,8 @@ namespace Crewing.Models
     public class UserLoginModel
     {
         [Required(ErrorMessage = "You must provide an email or mobile phone number")]
-        [MinLength(5, ErrorMessage = "")]
-        [MaxLength(50)]
+        [MinLength(5, ErrorMessage = "The email or phone number has to be 5 or more characters long")]
+        [MaxLength(50, ErrorMessage = "The email or phone number has to be 50 or fewer characters long")]
         public string? EmailOrPhone { get; set; }
 
         [Required(ErrorMessage = "You must provide a password")]
