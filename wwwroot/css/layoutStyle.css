@@ -49,18 +49,35 @@ a
     border-top: 2px solid;
 }
 
+#crewingsign
+{
+    display: flex;
+    background-color: white;
+    text-align: center;
+    align-items: center;
+    border-radius: 0px 10px 10px 0px;
+}
+
 #crewingsign h1
 {
-    padding: 0px 10px;
+    padding: 0 10px;
+    margin: 0;
     color: white;
     background-color: rgb(75, 75, 75);
     border-radius: 0px 10px 10px 0px;
 }
 
+#crewingsign h2
+{
+    margin: 0;
+    padding: 0 10px;
+}
+
 #centerdiv
 {
     position: absolute;
-    width: 100%;
+    width: 50%;
+    left: 25%;
     display: flex;
     justify-content: center;
 }
