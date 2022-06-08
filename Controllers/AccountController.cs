@@ -23,13 +23,10 @@ namespace Crewing.Controllers
             this.configuration = configuration;
         }
 
-        public IActionResult EmployerRegister()
-        {
-            return View();
-        }
-
         public IActionResult ClientRegister()
         {
+            if (User.Identity!.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -81,6 +78,13 @@ namespace Crewing.Controllers
             }
             ViewBag.IsValid = ModelState.IsValid;
             return View("ClientRegister", model);
+        }
+
+        public IActionResult EmployerRegister()
+        {
+            if (User.Identity!.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+            return View();
         }
 
         [HttpPost]
@@ -135,6 +139,8 @@ namespace Crewing.Controllers
 
         public IActionResult Login()
         {
+            if (User.Identity!.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
             return View();
         }
 
