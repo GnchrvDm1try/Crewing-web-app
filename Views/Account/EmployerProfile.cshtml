@@ -1,0 +1,44 @@
+﻿@model Crewing.Models.Employer
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Profile</h1>
+<div class="userprofile">
+    <div class="columnofhalf">
+        <h2>Название компании</h2>
+        <p>@Model.Companyname</p>
+        <h2>Рейтинг</h2>
+        <p>@Model.Rating (@Model.Reviews.Count)</p>
+        <h2>Количество судов</h2>
+        <p>@Model.Vessels.Count</p>
+    </div>
+    <div class="columnofhalf">
+        <h2>Номер телефона</h2>
+        <p>@Model.Phonenumber</p>
+        <h2>Электронная почта</h2>
+        <p>@Model.Email</p>
+        <h2>Дата регистрации</h2>
+        <p>2020.8.13</p>
+    </div>
+</div>
+<hr />
+<h2>Отзывы:</h2>
+<div class="reviews">
+    @foreach(Review review in Model.Reviews)
+    {
+        <div class="reviewcontainer">
+            <div class="reviewtop">
+                <span>@review.Client.Firstname @review.Client.Lastname</span>
+                @review.Datetime
+            </div>
+            <p>@review.Comment</p>
+            <p class="estimationmark">@review.Estimation</p>
+        </div>
+    }
+</div>
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to home page</a>
+</div>
