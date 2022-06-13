@@ -9,18 +9,45 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Crewing.Models;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Crewing.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly CrewingContext context;
+        private CrewingContext context;
         private IConfiguration configuration;
 
         public AccountController(CrewingContext context, IConfiguration configuration)
         {
             this.context = context;
             this.configuration = configuration;
+        }
+
+        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        {
+            if (User.Identity!.IsAuthenticated)
+            {
+                string password = User.Claims.FirstOrDefault(c => c.Type == "password")!.Value;
+                string role = User.Claims.FirstOrDefault(c => c.Type.Contains("role"))!.Value;
+                User? user = await FindUserOrNullAsync(User.Identity.Name!);
+                if (user == null)
+                    throw new Exception("Unable to find the current user in the database");
+                DbContextOptionsBuilder<CrewingContext> optionsBuilder = new DbContextOptionsBuilder<CrewingContext>();
+                var options = optionsBuilder
+                    .UseNpgsql($"Server=localhost; Port=5432; Database=Crewing; Username={role.ToLower()}{user.Phonenumber.Remove(0, 1)}; Password={password}")
+                    .Options;
+                using (CrewingContext crewingContext = new CrewingContext(options))
+                {
+                    await this.context.DisposeAsync();
+                    this.context = crewingContext;
+                    await next();
+                }
+            }
+            else
+            {
+                await next();
+            }
         }
 
         public async Task<IActionResult> Profile()
