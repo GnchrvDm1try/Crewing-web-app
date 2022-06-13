@@ -27,10 +27,7 @@
             @if(User.Identity!.IsAuthenticated)
             {
                 <ul class="horizontallist">
-                    @foreach(var claim in User.Claims)
-                    {
-                        <li>@claim.Value</li>
-                    }
+                    <li><a asp-controller="Account" asp-action="Profile">@User.Identity.Name</a></li>
                     <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
                 </ul>
             }

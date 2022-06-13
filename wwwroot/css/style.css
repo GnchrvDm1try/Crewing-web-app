@@ -157,10 +157,15 @@ th:last-child
 }
 
 .vacancyheader a h3,
-.vacancy h2
+.vacancy h2,
+.userprofile h2
+{
+    color: rgb(196, 196, 196);
+}
+
+.vacancyheader a h3
 {
     margin: 0;
-    color: rgb(196, 196, 196);
 }
 
 .vacancyheader a img
@@ -218,8 +223,7 @@ th:last-child
 .userprofile
 {
     display: flex;
-    padding: 40px;
-    
+    padding: 0 40px 40px 40px;
 }
 
 .columnofhalf
@@ -236,4 +240,23 @@ th:last-child
 .columnofhalf h2
 {
     margin-bottom: 10px;
+}
+
+.reviewcontainer
+{
+    border: 1px white solid;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.reviewtop
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.estimationmark
+{
+    margin: 0;
+    font-weight: bold;
 }
