@@ -23,6 +23,36 @@ namespace Crewing.Controllers
             this.configuration = configuration;
         }
 
+        public async Task<IActionResult> Profile()
+        {
+            if (User.Claims.FirstOrDefault(c => c.Type.Contains("role"))!.Value == "Client")
+            {
+                Client? client = await context.Clients.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name);
+                if(client != null)
+                {
+                    var contracts = await context.Contracts
+                        .Where(c => c.Clientid == client.Id)
+                        .Include(c => c.Vacancy.Sailorpost)
+                        .Include(c => c.Vacancy.AgreementnumberNavigation.VesselnumberNavigation)
+                        .ToListAsync();
+                    return View("ClientProfile", client);
+                }
+            }
+            else if (User.Claims.FirstOrDefault(c => c.Type.Contains("role"))!.Value == "Employer")
+            {
+                Employer? employer = await context.Employers.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name);
+                if(employer != null)
+                {
+                    var reviews = await context.Reviews
+                        .Where(r => r.Companyname == employer.Companyname)
+                        .Include(r => r.Client)
+                        .ToListAsync();
+                }
+                return View("EmployerProfile", employer);
+            }
+            return NotFound();
+        }
+
         public IActionResult ClientRegister()
         {
             if (User.Identity!.IsAuthenticated)
