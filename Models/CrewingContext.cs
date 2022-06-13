@@ -7,14 +7,18 @@ namespace Crewing.Models
 {
     public partial class CrewingContext : DbContext
     {
-        private IConfiguration configuration;
+        private IConfiguration? configuration;
         public CrewingContext(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
 
-        public CrewingContext(DbContextOptions<CrewingContext> options, IConfiguration configuration)
-            : base(options)
+        public CrewingContext(DbContextOptions<CrewingContext> options) : base(options)
+        {
+
+        }
+
+        public CrewingContext(DbContextOptions<CrewingContext> options, IConfiguration configuration) : base(options)
         {
             this.configuration = configuration;
         }
