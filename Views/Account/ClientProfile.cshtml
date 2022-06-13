@@ -1,0 +1,67 @@
+﻿@model Crewing.Models.Client
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Profile</h1>
+<div class="userprofile">
+    <div class="columnofhalf">
+        <h2>Имя</h2>
+        <p>@Model.Firstname</p>
+        <h2>Фамилия</h2>
+        <p>@Model.Lastname</p>
+        <h2>Дата рождения</h2>
+        <p>@Model.Birthdate</p>
+        <h2>Статус</h2>
+        <p>@Model.Status</p>
+        <h2>Хронические заболевания</h2>
+        <p>@Model.Chronicdiseases</p>
+        <h2>Дата регистрации</h2>
+        <p>@Model.Registrationdate</p>
+    </div>
+    <div class="columnofhalf">
+        <h2>Номер телефона</h2>
+        <p>@Model.Phonenumber</p>
+        <h2>Электронная почта</h2>
+        <p>@Model.Email</p>
+        <h2>Количество заключённый контрактов</h2>
+        <p>@Model.Contracts.Count</p>
+        <h2>Образование</h2>
+        <p>@Model.Education</p>
+        <h2>Зависимости</h2>
+        <p>@Model.Dependencies</p>
+    </div>
+</div>
+<hr />
+<h2>Хронология рейсов:</h2>
+<table>
+    <tr>
+        <th>Номер контракта</th>
+        <th>Должность</th>
+        <th>Дата заключения</th>
+        <th>Судно</th>
+        <th>Компания</th>
+        <th>оклад</th>
+        <th>Срок</th>
+        <th>Статус</th>
+    </tr>
+    @foreach(Contract contract in Model.Contracts)
+    {
+        <tr>
+            <td>@contract.Contractnumber</td>
+            <td>@contract.Vacancy.Sailorpost.Name</td>
+            <td>@contract.Conclusiondate</td>
+            <td>@contract.Vacancy.AgreementnumberNavigation.VesselnumberNavigation.Vesselname</td>
+            <td>@contract.Vacancy.AgreementnumberNavigation.VesselnumberNavigation.Companyname</td>
+            <td>@contract.Vacancy.Salary</td>
+            <td>@contract.Vacancy.Term</td>
+            <td>@contract.Status</td>
+        </tr>
+    }
+</table>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
