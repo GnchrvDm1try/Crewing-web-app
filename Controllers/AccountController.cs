@@ -38,11 +38,11 @@ namespace Crewing.Controllers
             {
                 try
                 {
-                    User? user = await FindUserOrNull(model.Email!);
+                    User? user = await FindUserOrNullAsync(model.Email!);
                     if (user != null)
                         throw new Exception("User with such email exists");
 
-                    user = await FindUserOrNull(model.PhoneNumber!);
+                    user = await FindUserOrNullAsync(model.PhoneNumber!);
                     if (user != null)
                         throw new Exception("User with such phone exists");
 
@@ -95,15 +95,15 @@ namespace Crewing.Controllers
             {
                 try
                 {
-                    User? user = await FindCompanyByNameOrNull(model.CompanyName!);
+                    User? user = await FindCompanyByNameOrNullAsync(model.CompanyName!);
                     if (user != null)
                         throw new Exception("Company with such name exists");
 
-                    user = await FindUserOrNull(model.Email!);
+                    user = await FindUserOrNullAsync(model.Email!);
                     if (user != null)
                         throw new Exception("User with such email exists");
 
-                    user = await FindUserOrNull(model.PhoneNumber!);
+                    user = await FindUserOrNullAsync(model.PhoneNumber!);
                     if (user != null)
                         throw new Exception("User with such phone exists");
 
@@ -153,7 +153,7 @@ namespace Crewing.Controllers
             {
                 try
                 {
-                    User? user = await FindUserOrNull(model.EmailOrPhone!);
+                    User? user = await FindUserOrNullAsync(model.EmailOrPhone!);
                     if (user == null)
                     {
                         ModelState.AddModelError("", "User with such email or phone doesn't exist.");
@@ -170,12 +170,12 @@ namespace Crewing.Controllers
                         ModelState.AddModelError("", "Incorrect password.");
                         return View(model);
                     }
-                    await context.SaveChangesAsync();
                     var claims = new List<Claim>
                         {
                             new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                            new Claim(ClaimsIdentity.DefaultRoleClaimType, user.GetType().Name)
-                        };
+                            new Claim(ClaimsIdentity.DefaultRoleClaimType, user.GetType().Name),
+                            new Claim("password", model.Password!)
+                };
                     ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
                     return RedirectToAction("Index", "Home");
@@ -195,11 +195,10 @@ namespace Crewing.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await context.Database.CloseConnectionAsync();
             context.Database.SetConnectionString(configuration.GetConnectionString("GuestConnection"));
-            await context.Database.OpenConnectionAsync();
             return RedirectToAction("Index", "Home");
         }
 
-        private async Task<User?> FindUserOrNull(string emailOrPhone)
+        private async Task<User?> FindUserOrNullAsync(string emailOrPhone)
         {
             User? user = await context.Clients.FirstOrDefaultAsync(c => c.Email == emailOrPhone || c.Phonenumber == emailOrPhone);
             if (user != null)
@@ -212,8 +211,8 @@ namespace Crewing.Controllers
                 return user;
             return null;
         }
-        
-        private async Task<Employer?> FindCompanyByNameOrNull(string companyName)
+
+        private async Task<Employer?> FindCompanyByNameOrNullAsync(string companyName)
         {
             Employer? employer = await context.Employers.FirstOrDefaultAsync(er => er.Companyname == companyName);
             return employer;
