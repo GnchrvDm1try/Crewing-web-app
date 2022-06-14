@@ -251,6 +251,8 @@ namespace Crewing.Models
                 entity.Property(e => e.Phonenumber)
                     .HasMaxLength(13)
                     .HasColumnName("phonenumber");
+
+                entity.Property(e => e.Registrationdate).HasColumnName("registrationdate");
             });
 
             modelBuilder.Entity<EmployeePost>(entity =>
@@ -309,6 +311,8 @@ namespace Crewing.Models
                     .HasColumnName("phonenumber");
 
                 entity.Property(e => e.Rating).HasColumnName("rating");
+
+                entity.Property(e => e.Registrationdate).HasColumnName("registrationdate");
             });
 
             modelBuilder.Entity<Language>(entity =>

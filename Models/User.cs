@@ -5,5 +5,7 @@
         public string Phonenumber { get; set; } = null!;
         
         public string Email { get; set; } = null!;
+
+        public DateOnly Registrationdate { get; set; }
     }
 }
