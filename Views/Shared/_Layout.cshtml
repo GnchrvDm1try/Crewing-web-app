@@ -21,7 +21,7 @@
             <div id="centerdiv">
                 <ul class="horizontallist">
                     <li><a asp-controller="Vacancy" asp-action="Preview">Vacancies</a></li>
-                    <li><a href="">Companies</a></li>
+                    <li><a asp-controller="Employer" asp-action="Preview">Companies</a></li>
                 </ul>
             </div>
             @if(User.Identity!.IsAuthenticated)

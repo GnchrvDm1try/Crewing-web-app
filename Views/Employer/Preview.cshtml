@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Crewing.Models.Employer>
+
+@{
+    ViewData["Title"] = "Preview employers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="vacanciesdiv">
+    @foreach (var item in Model)
+    {
+        <div class="vacancyheader">
+            <a href="@Url.Action("Details", "Employer", new { companyName = @item.Companyname })">
+                <div>
+                    <h3>Название компании</h3>
+                    <p>@item.Companyname</p>
+                </div>
+                <div>
+                    <h3>Рейтинг</h3>
+                    <p>@item.Rating (@item.Reviews.Count)</p>
+                </div>
+                <div>
+                    <h3>Дата регистрации</h3>
+                    <p>@item.Registrationdate</p>
+                </div>
+            </a>
+        </div>
+    }
+</div>
