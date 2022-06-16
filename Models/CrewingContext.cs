@@ -544,5 +544,25 @@ namespace Crewing.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public async Task<User?> FindUserOrNullAsync(string emailOrPhone)
+        {
+            User? user = await this.Clients.FirstOrDefaultAsync(c => c.Email == emailOrPhone || c.Phonenumber == emailOrPhone);
+            if (user != null)
+                return user;
+            user = await this.Employers.FirstOrDefaultAsync(er => er.Email == emailOrPhone || er.Phonenumber == emailOrPhone);
+            if (user != null)
+                return user;
+            user = await this.Employees.FirstOrDefaultAsync(e => e.Email == emailOrPhone || e.Phonenumber == emailOrPhone);
+            if (user != null)
+                return user;
+            return null;
+        }
+
+        public async Task<Employer?> FindCompanyByNameOrNullAsync(string companyName)
+        {
+            Employer? employer = await this.Employers.FirstOrDefaultAsync(er => er.Companyname == companyName);
+            return employer;
+        }
     }
 }

@@ -30,7 +30,7 @@ namespace Crewing.Controllers
             {
                 string password = User.Claims.FirstOrDefault(c => c.Type == "password")!.Value;
                 string role = User.Claims.FirstOrDefault(c => c.Type.Contains("role"))!.Value;
-                User? user = await FindUserOrNullAsync(User.Identity.Name!);
+                User? user = await this.context.FindUserOrNullAsync(User.Identity.Name!);
                 if (user == null)
                     throw new Exception("Unable to find the current user in the database");
                 DbContextOptionsBuilder<CrewingContext> optionsBuilder = new DbContextOptionsBuilder<CrewingContext>();
@@ -95,11 +95,11 @@ namespace Crewing.Controllers
             {
                 try
                 {
-                    User? user = await FindUserOrNullAsync(model.Email!);
+                    User? user = await context.FindUserOrNullAsync(model.Email!);
                     if (user != null)
                         throw new Exception("User with such email exists");
 
-                    user = await FindUserOrNullAsync(model.PhoneNumber!);
+                    user = await context.FindUserOrNullAsync(model.PhoneNumber!);
                     if (user != null)
                         throw new Exception("User with such phone exists");
 
@@ -152,15 +152,15 @@ namespace Crewing.Controllers
             {
                 try
                 {
-                    User? user = await FindCompanyByNameOrNullAsync(model.CompanyName!);
+                    User? user = await context.FindCompanyByNameOrNullAsync(model.CompanyName!);
                     if (user != null)
                         throw new Exception("Company with such name exists");
 
-                    user = await FindUserOrNullAsync(model.Email!);
+                    user = await context.FindUserOrNullAsync(model.Email!);
                     if (user != null)
                         throw new Exception("User with such email exists");
 
-                    user = await FindUserOrNullAsync(model.PhoneNumber!);
+                    user = await context.FindUserOrNullAsync(model.PhoneNumber!);
                     if (user != null)
                         throw new Exception("User with such phone exists");
 
@@ -210,7 +210,7 @@ namespace Crewing.Controllers
             {
                 try
                 {
-                    User? user = await FindUserOrNullAsync(model.EmailOrPhone!);
+                    User? user = await context.FindUserOrNullAsync(model.EmailOrPhone!);
                     if (user == null)
                     {
                         ModelState.AddModelError("", "User with such email or phone doesn't exist.");
@@ -253,26 +253,6 @@ namespace Crewing.Controllers
             await context.Database.CloseConnectionAsync();
             context.Database.SetConnectionString(configuration.GetConnectionString("GuestConnection"));
             return RedirectToAction("Index", "Home");
-        }
-
-        private async Task<User?> FindUserOrNullAsync(string emailOrPhone)
-        {
-            User? user = await context.Clients.FirstOrDefaultAsync(c => c.Email == emailOrPhone || c.Phonenumber == emailOrPhone);
-            if (user != null)
-                return user;
-            user = await context.Employers.FirstOrDefaultAsync(er => er.Email == emailOrPhone || er.Phonenumber == emailOrPhone);
-            if (user != null)
-                return user;
-            user = await context.Employees.FirstOrDefaultAsync(e => e.Email == emailOrPhone || e.Phonenumber == emailOrPhone);
-            if (user != null)
-                return user;
-            return null;
-        }
-
-        private async Task<Employer?> FindCompanyByNameOrNullAsync(string companyName)
-        {
-            Employer? employer = await context.Employers.FirstOrDefaultAsync(er => er.Companyname == companyName);
-            return employer;
         }
     }
 }
