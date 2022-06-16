@@ -6,6 +6,6 @@
         
         public string Email { get; set; } = null!;
 
-        public DateOnly Registrationdate { get; set; }
+        public DateOnly Registrationdate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     }
 }

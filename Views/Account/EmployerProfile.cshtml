@@ -24,6 +24,10 @@
         <p>@Model.Registrationdate</p>
     </div>
 </div>
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to home</a> |
+    <a asp-action="Preview">Back to list</a>
+</div>
 <hr />
 <h2>Отзывы:</h2>
 @if (User.IsInRole("Client"))

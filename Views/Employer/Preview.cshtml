@@ -8,7 +8,7 @@
 <div class="vacanciesdiv">
     @foreach (var item in Model)
     {
-        <div class="vacancyheader">
+        <div class="linkheader">
             <a href="@Url.Action("Details", "Employer", new { companyName = @item.Companyname })">
                 <div>
                     <h3>Название компании</h3>

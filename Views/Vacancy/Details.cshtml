@@ -18,6 +18,8 @@
             <p>@vacancy.Salary</p>
             <h2>Рабочий срок</h2>
             <p>@vacancy.Term</p>
+            <h2>Количество работников на должность</h2>
+            <p>@vacancy.Workersamount</p>
         </div>
         <div class="verticalinfoseparator"></div>
         <div class="infoblock">   
@@ -41,14 +43,17 @@
             <p>@vessel.Status</p>
             <h2>Местоположение</h2>
             <p>@vessel.Location</p>
-            <h2>Экипаж</h2>
-            <p>@vessel.Workersamount человек</p>
+            @if(@vessel.Workersamount > 0)
+            {
+                <h2>Экипаж</h2>
+                <p>@vessel.Workersamount человек</p>
+            }
         </div>
         <div class="verticalinfoseparator"></div>
         <div class="infoblock">
             <h1>Работодатель</h1>
             <h2>Название компании</h2>
-            <a href="">
+            <a href="@Url.Action("Details", "Employer", new { companyName = company.Companyname })">
                 <p>@company.Companyname</p>
             </a>
             <h2>Эл. почта</h2>

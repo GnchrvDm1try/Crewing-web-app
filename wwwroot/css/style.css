@@ -125,17 +125,17 @@ th:last-child
     padding: 10px;
 }
 
-.vacancyheader:not(:first-child)
+.linkheader:not(:first-child)
 {
     margin-top: 30px;
 }
 
-.vacancyheader:not(:last-child)
+.linkheader:not(:last-child)
 {
     border-bottom: 2px white dashed;
 }
 
-.vacancyheader a
+.linkheader a
 {
     margin: 10px;
     color: white;
@@ -144,31 +144,31 @@ th:last-child
     justify-content: space-between;
 }
 
-.vacancyheader a:hover,
+.linkheader a:hover,
 .vacancy a p:hover
 {
     background-color: rgb(92, 92, 92);
 }
 
-.vacancyheader a p
+.linkheader a p
 {
     margin: 0 0 15px 0;
     font-size: 25px;
 }
 
-.vacancyheader a h3,
+.linkheader a h3,
 .vacancy h2,
 .userprofile h2
 {
     color: rgb(196, 196, 196);
 }
 
-.vacancyheader a h3
+.linkheader a h3
 {
     margin: 0;
 }
 
-.vacancyheader a img
+.linkheader a img
 {
     width: 200px;
     height: 129px;

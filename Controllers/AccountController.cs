@@ -52,7 +52,7 @@ namespace Crewing.Controllers
 
         public async Task<IActionResult> Profile()
         {
-            if (User.Claims.FirstOrDefault(c => c.Type.Contains("role"))!.Value == "Client")
+            if (User.IsInRole("Client"))
             {
                 Client? client = await context.Clients.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name);
                 if(client != null)
@@ -65,17 +65,19 @@ namespace Crewing.Controllers
                     return View("ClientProfile", client);
                 }
             }
-            else if (User.Claims.FirstOrDefault(c => c.Type.Contains("role"))!.Value == "Employer")
+            else if (User.IsInRole("Employer"))
             {
-                Employer? employer = await context.Employers.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name);
+                Employer? employer = await context.Employers
+                    .Include(e => e.Vessels)
+                    .FirstOrDefaultAsync(u => u.Email == User.Identity!.Name);
                 if(employer != null)
                 {
                     var reviews = await context.Reviews
                         .Where(r => r.Companyname == employer.Companyname)
                         .Include(r => r.Client)
                         .ToListAsync();
+                    return View("EmployerProfile", employer);
                 }
-                return View("EmployerProfile", employer);
             }
             return NotFound();
         }
@@ -168,6 +170,7 @@ namespace Crewing.Controllers
                     {
                         Companyname = model.CompanyName!,
                         Email = model.Email!,
+                        Registrationdate = DateOnly.FromDateTime(DateTime.Now),
                         Phonenumber = model.PhoneNumber!,
                         Rating = 0.0
                     };
