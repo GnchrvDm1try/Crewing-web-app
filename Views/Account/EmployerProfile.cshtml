@@ -26,6 +26,10 @@
 </div>
 <hr />
 <h2>Отзывы:</h2>
+@if (User.IsInRole("Client"))
+{
+    @Html.Partial("~/Views/Employer/ReviewForm.cshtml", new ReviewCreationModel() {Companyname = Model.Companyname})
+}
 <div class="reviews">
     @foreach(Review review in Model.Reviews)
     {
@@ -38,7 +42,4 @@
             <p class="estimationmark">@review.Estimation</p>
         </div>
     }
-</div>
-<div>
-    <a asp-controller="Home" asp-action="Index">Back to home page</a>
 </div>
