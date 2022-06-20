@@ -34,7 +34,19 @@
         <p>@Model.Dependencies</p>
     </div>
 </div>
+<div class="pagenavigation">
+    <ul class="horizontallist">
+        @if(User.IsInRole("Client"))
+        {
+            <li><a asp-action="Edit">Edit</a></li>
+        }
+        <li><a asp-action="Preview">Back to List</a></li>
+        <li><a asp-controller="Home" asp-action="Index">Back to home</a></li>
+    </ul>
+</div>
+
 <hr />
+
 <h2>Хронология рейсов:</h2>
 <table>
     <tr>
@@ -61,7 +73,3 @@
         </tr>
     }
 </table>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>

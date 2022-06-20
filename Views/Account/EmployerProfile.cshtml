@@ -24,18 +24,26 @@
         <p>@Model.Registrationdate</p>
     </div>
 </div>
-<div>
-    <a asp-controller="Home" asp-action="Index">Back to home</a> |
-    <a asp-action="Preview">Back to list</a>
+<div class="pagenavigation">
+    <ul class="horizontallist">
+        @if(User.IsInRole("Employer") && Model.Email == User.Identity!.Name)
+        {
+            <li><a asp-controller="Employer" asp-action="Edit" asp-route-id="@Model?.Companyname">Edit</a></li>
+        }
+        <li><a asp-controller="Employer" asp-action="Preview">Back to List</a></li>
+        <li><a asp-controller="Home" asp-action="Index">Back to home</a></li>
+    </ul>
 </div>
+
 <hr />
+
 <h2>Отзывы:</h2>
 @if (User.IsInRole("Client"))
 {
-    @Html.Partial("~/Views/Employer/ReviewForm.cshtml", new ReviewCreationModel() {Companyname = Model.Companyname})
+    @Html.Partial("~/Views/Employer/ReviewForm.cshtml", new ReviewCreationModel() {Companyname = Model!.Companyname})
 }
 <div class="reviews">
-    @foreach(Review review in Model.Reviews)
+    @foreach(Review review in Model!.Reviews)
     {
         <div class="reviewcontainer">
             <div class="reviewtop">

@@ -68,7 +68,21 @@
     <h2>Описание</h2>
     <p>@vacancy.Description</p>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="pagenavigation">
+    <ul class="horizontallist">
+        @if(User.IsInRole("Client"))
+        {
+            <form id="vacancyform" class="hiddenform" asp-action="ChangeOnRespond">
+                <input type="hidden" asp-for="@Model.Id">
+            </form>
+            <li><button class="white" type="submit" form="vacancyform">Respond</button></li>
+        }
+        @if(User.IsInRole("Employer") && company.Email == User.Identity!.Name)
+        {
+            <li><a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a></li>
+            <li></li>//delete
+        }
+        <li><a asp-action="Preview">Back to List</a></li>
+        <li><a asp-controller="Home" asp-action="Index">Back to home</a></li>
+    </ul>
 </div>
