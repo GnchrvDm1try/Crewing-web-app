@@ -219,8 +219,23 @@ namespace Crewing.Controllers
                         ModelState.AddModelError("", "User with such email or phone doesn't exist.");
                         return View(model);
                     }
+
+                    string role;
+                    if (user is Employee)
+                    {
+                        var employeePosts = await context.EmployeePosts
+                            .Where(ep => ep.Employeeid == ((Employee)user).Id)
+                            .ToListAsync();
+                        var posts = await context.Posts.ToListAsync();
+                        role = ((Employee)user).EmployeePosts
+                            .OrderByDescending(e => e.Hiringdate)
+                            .First().Post.Name;
+                    }
+                    else
+                        role = user.GetType().Name;
+
                     await context.Database.CloseConnectionAsync();
-                    context.Database.SetConnectionString($"Server=localhost; Port=5432; Database=Crewing; Username={user.GetType().Name.ToLower()}{user.Phonenumber.Remove(0, 1)}; Password={model.Password}");
+                    context.Database.SetConnectionString($"Server=localhost; Port=5432; Database=Crewing; Username={role.ToLower()}{user.Phonenumber.Remove(0, 1)}; Password={model.Password}");
                     try
                     {
                         await context.Database.OpenConnectionAsync();
@@ -230,12 +245,13 @@ namespace Crewing.Controllers
                         ModelState.AddModelError("", "Incorrect password.");
                         return View(model);
                     }
+
                     var claims = new List<Claim>
-                        {
-                            new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                            new Claim(ClaimsIdentity.DefaultRoleClaimType, user.GetType().Name),
-                            new Claim("password", model.Password!)
-                };
+                    {
+                        new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
+                        new Claim(ClaimsIdentity.DefaultRoleClaimType, role),
+                        new Claim("password", model.Password!)
+                    };
                     ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
                     return RedirectToAction("Index", "Home");
