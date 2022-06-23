@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Crewing.Models.Managerslastyearproductivity>
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>Month</th>
+            <th>Number of contracts</th>
+            <th>Employee Id</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Phone number</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Month</td>
+                <td>@item.Cc</td>
+                <td>@item.Id</td>
+                <td>@item.Firstname</td>
+                <td>@item.Lastname</td>
+                <td>@item.Phonenumber</td>
+                <td>@item.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>
