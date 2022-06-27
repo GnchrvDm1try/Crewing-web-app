@@ -82,6 +82,27 @@ namespace Crewing.Controllers
             return NotFound();
         }
 
+        public async Task<IActionResult> Client(int? id)
+        {
+            if ((!User.IsInRole("Manager") && !User.IsInRole("Administrator")) || id == null || context.Clients == null)
+            {
+                return NotFound();
+            }
+
+            Client? client = await context.Clients.FirstOrDefaultAsync(c => c.Id == id);
+            if (client == null)
+            {
+                return NotFound();
+            }
+
+            var contracts = await context.Contracts
+                .Where(c => c.Clientid == client.Id)
+                .Include(c => c.Vacancy.Sailorpost)
+                .Include(c => c.Vacancy.AgreementnumberNavigation.VesselnumberNavigation)
+                .ToListAsync();
+            return View("ClientProfile", client);
+        }
+
         public IActionResult ClientRegister()
         {
             if (User.Identity!.IsAuthenticated)
