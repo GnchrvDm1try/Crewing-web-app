@@ -33,6 +33,7 @@ namespace Crewing.Models
         public virtual DbSet<Employer> Employers { get; set; } = null!;
         public virtual DbSet<Language> Languages { get; set; } = null!;
         public virtual DbSet<LanguageClient> LanguageClients { get; set; } = null!;
+        public virtual DbSet<Managerslastyearproductivity> Managerslastyearproductivities { get; set; } = null!;
         public virtual DbSet<Post> Posts { get; set; } = null!;
         public virtual DbSet<Requirement> Requirements { get; set; } = null!;
         public virtual DbSet<Review> Reviews { get; set; } = null!;
@@ -357,6 +358,35 @@ namespace Crewing.Models
                     .HasForeignKey(d => d.Languageid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("languages_clients_languageid_fkey");
+            });
+
+            modelBuilder.Entity<Managerslastyearproductivity>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("managerslastyearproductivity");
+
+                entity.Property(e => e.Cc).HasColumnName("cc");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.Firstname)
+                    .HasMaxLength(20)
+                    .HasColumnName("firstname");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Lastname)
+                    .HasMaxLength(30)
+                    .HasColumnName("lastname");
+
+                entity.Property(e => e.Month).HasColumnName("month");
+
+                entity.Property(e => e.Phonenumber)
+                    .HasMaxLength(13)
+                    .HasColumnName("phonenumber");
             });
 
             modelBuilder.Entity<Post>(entity =>
