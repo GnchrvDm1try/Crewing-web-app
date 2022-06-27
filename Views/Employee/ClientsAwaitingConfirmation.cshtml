@@ -1,0 +1,63 @@
+﻿@model ClientsVacancies
+
+@{
+    ViewData["Title"] = "ClientsAwaitingConfirmation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Clients Awaiting Confirmation</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First name </th>
+            <th>Last name</th>
+            <th>Date of birth</th>
+            <th>Sex</th>
+            <th>Position</th>
+            <th>Salary</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+    @{
+        Client client;
+        Vacancy vacancy;
+        @foreach(var item in Model.IdPairs)
+        {
+            client = Model.Clients.Where(c => c.Id == item.Key).FirstOrDefault()!;
+            vacancy = Model.Vacancies.Where(v => v.Id == item.Value).FirstOrDefault()!;
+            <tr>
+                <td><a asp-controller="Account" asp-action="Client" asp-route-id="@client.Id">@client.Firstname</a></td>
+                <td><a asp-controller="Account" asp-action="Client" asp-route-id="@client.Id">@client.Lastname</a></td>
+                <td><a asp-controller="Account" asp-action="Client" asp-route-id="@client.Id">@client.Birthdate</a></td>
+                <td>
+                @if(client.Ismale == true)
+                {
+                    <p><a asp-controller="Account" asp-action="Client" asp-route-id="@client.Id">Male</a></p>
+                }
+                else
+                {
+                    <p><a asp-controller="Account" asp-action="Client" asp-route-id="@client.Id">Female</a></p>
+                }
+                </td>
+                <td><a asp-controller="Vacancy" asp-action="Details" asp-route-id="@vacancy.Id">@vacancy.Sailorpost.Name</a></td>
+                <td><a asp-controller="Vacancy" asp-action="Details" asp-route-id="@vacancy.Id">@vacancy.Salary</a></td>
+                <td>
+                    <form id="approveform" class="hiddenform" asp-action="ApproveClient">
+                        <input type="hidden" name="clientId" value="@client.Id">
+                        <input type="hidden" name="vacancyId" value="@vacancy.Id">
+                    </form>
+                    <form id="refuseform" class="hiddenform" asp-action="RefuseClient">
+                        <input type="hidden" name="clientId" value="@client.Id">
+                    </form>
+                    <ul class="horizontallist">
+                        <li><button class="white" type="submit" form="approveform">Approve</button></li>
+                        <li><button class="white" type="submit" form="refuseform">Refuse</button></li>
+                    </ul>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
