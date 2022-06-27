@@ -201,5 +201,24 @@ namespace Crewing.Controllers
         {
             return (context.Vacancies?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeOnRespond(int id)
+        {
+            if (!User.IsInRole("Client") || !VacancyExists(id))
+            {
+                return NotFound();
+            }
+
+            Client? client = (Client?)await context.FindUserOrNullAsync(User.Identity!.Name!);
+            if (client != null)
+            {
+                client.Status = $"Responded on vacancy with id {id}";
+                context.Update(client);
+                await context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Preview));
+        }
     }
 }
