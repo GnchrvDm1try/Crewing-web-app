@@ -1,0 +1,66 @@
+﻿@model Crewing.Models.Vessel
+
+@{
+    ViewData["Title"] = "CreateVessel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CreateVessel</h1>
+
+<h4>Vessel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateVessel">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Vesselname" class="control-label"></label>
+                <input asp-for="Vesselname" class="form-control" />
+                <span asp-validation-for="Vesselname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Workersamount" class="control-label"></label>
+                <input asp-for="Workersamount" class="form-control" />
+                <span asp-validation-for="Workersamount" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Companyname" value="@ViewBag.Companyname" />
+            <div class="form-group">
+                <label asp-for="Internationalnumber" class="control-label"></label>
+                <input asp-for="Internationalnumber" class="form-control" />
+                <span asp-validation-for="Internationalnumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vesseltypeid" class="control-label"></label>
+                <select asp-for="Vesseltypeid" class ="form-control" asp-items="ViewBag.Vesseltypeid"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        @if(ViewBag.IsValid == false)
+        {
+            @Html.ValidationSummary()
+        }
+    </div>
+</div>
+
+<div class="pagenavigation">
+    <ul class="horizontallist">
+        <li><a asp-action="Preview">Back to List</a></li>
+        <li><a asp-controller="Home" asp-action="Index">Back to home</a></li>
+    </ul>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
