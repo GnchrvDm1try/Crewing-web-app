@@ -79,6 +79,35 @@ namespace Crewing.Controllers
             return View("~/Views/Account/EmployerProfile.cshtml", employer);
         }
 
+        // GET: Employer/CreateAgreement
+        public async Task<IActionResult> CreateAgreement()
+        {
+            if (!User.IsInRole("Employer"))
+                return NotFound();
+
+            var vessels = await context.Vessels.Where(v => v.CompanynameNavigation!.Email == User.Identity!.Name).ToListAsync();
+            ViewData["Vesselnumber"] = new SelectList(vessels, "Internationalnumber", "Internationalnumber");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateAgreement([Bind("Vesselnumber")] Agreement agreement)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Add(agreement);
+                await context.SaveChangesAsync();
+                return RedirectToAction(nameof(Preview));
+            }
+            ViewBag.IsValid = ModelState.IsValid;
+
+            var vessels = await context.Vessels.Where(v => v.CompanynameNavigation!.Email == User.Identity!.Name).ToListAsync();
+            ViewData["Vesselnumber"] = new SelectList(vessels, "Internationalnumber", "Internationalnumber");
+
+            return View(agreement);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateReview(ReviewCreationModel reviewForm)
