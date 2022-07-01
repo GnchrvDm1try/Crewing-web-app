@@ -12,11 +12,11 @@ namespace Crewing.Models
 
         public int Agreementnumber { get; set; }
         public string Vesselnumber { get; set; } = null!;
-        public int Employeeid { get; set; }
-        public DateOnly Conclusiondate { get; set; }
+        public int Employeeid { get; set; } = 0;
+        public DateOnly Conclusiondate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
-        public virtual Employee Employee { get; set; } = null!;
-        public virtual Vessel VesselnumberNavigation { get; set; } = null!;
+        public virtual Employee? Employee { get; set; }
+        public virtual Vessel? VesselnumberNavigation { get; set; }
         public virtual ICollection<Vacancy> Vacancies { get; set; }
     }
 }

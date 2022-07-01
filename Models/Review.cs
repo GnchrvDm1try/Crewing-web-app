@@ -12,7 +12,7 @@ namespace Crewing.Models
         public double Estimation { get; set; }
         public DateTime Datetime { get; set; }
 
-        public virtual Client Client { get; set; } = null!;
-        public virtual Employer CompanynameNavigation { get; set; } = null!;
+        public virtual Client? Client { get; set; }
+        public virtual Employer? CompanynameNavigation { get; set; }
     }
 }

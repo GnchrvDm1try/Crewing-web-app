@@ -8,7 +8,7 @@ namespace Crewing.Models
         public int Contractnumber { get; set; }
         public int Clientid { get; set; }
         public int Employeeid { get; set; }
-        public DateOnly Conclusiondate { get; set; }
+        public DateOnly Conclusiondate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
         public int Vacancyid { get; set; }
         public string? Status { get; set; }
 

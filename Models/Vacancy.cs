@@ -19,8 +19,8 @@ namespace Crewing.Models
         public string? Description { get; set; }
         public string Term { get; set; } = null!;
 
-        public virtual Agreement AgreementnumberNavigation { get; set; } = null!;
-        public virtual Sailorpost Sailorpost { get; set; } = null!;
+        public virtual Agreement? AgreementnumberNavigation { get; set; }
+        public virtual Sailorpost? Sailorpost { get; set; }
         public virtual ICollection<Contract> Contracts { get; set; }
         public virtual ICollection<Requirement> Requirements { get; set; }
     }
