@@ -108,6 +108,52 @@ namespace Crewing.Controllers
             return View(agreement);
         }
 
+        //GET: Employer/CreateVessel
+        public async Task<IActionResult> CreateVessel()
+        {
+            if (!User.IsInRole("Employer"))
+                return NotFound();
+
+            var vesseltypes = await context.Vesseltypes.ToListAsync();
+            ViewData["Vesseltypeid"] = new SelectList(vesseltypes, "Id", "Name");
+
+            Employer? employer = await context.Employers.FirstOrDefaultAsync(e => e.Email == User.Identity!.Name);
+            if (employer == null)
+                return NotFound();
+
+            ViewBag.Companyname = employer.Companyname;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateVessel([Bind("Internationalnumber,Vesselname,Vesseltypeid,Companyname,Workersamount,Location,Status")] Vessel vessel)
+        {
+            var company = await context.Employers.FindAsync(vessel.Companyname);
+            var vesseltype = await context.Vesseltypes.FindAsync(vessel.Vesseltypeid);
+            if (company != null)
+                vessel.CompanynameNavigation = company;
+            if (vesseltype != null)
+                vessel.Vesseltype = vesseltype;
+
+            if (ModelState.IsValid)
+            {
+                context.Add(vessel);
+                await context.SaveChangesAsync();
+                return RedirectToAction(nameof(Preview));
+            }
+            ViewBag.IsValid = ModelState.IsValid;
+            var vesseltypes = await context.Vesseltypes.ToListAsync();
+            ViewData["Vesseltypeid"] = new SelectList(vesseltypes, "Id", "Name");
+
+            Employer? employer = await context.Employers.FirstOrDefaultAsync(e => e.Email == User.Identity!.Name);
+            if (employer == null)
+                return NotFound();
+
+            ViewBag.Companyname = employer.Companyname;
+            return View(vessel);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateReview(ReviewCreationModel reviewForm)
