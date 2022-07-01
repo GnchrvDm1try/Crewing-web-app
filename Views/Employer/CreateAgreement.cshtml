@@ -1,0 +1,40 @@
+﻿@model Crewing.Models.Agreement
+
+@{
+    ViewData["Title"] = "CreateAgreement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CreateAgreement</h1>
+
+<h4>Agreement</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateAgreement">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Vesselnumber" class="control-label"></label>
+                <select asp-for="Vesselnumber" class ="form-control" asp-items="ViewBag.Vesselnumber"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        @if(ViewBag.IsValid == false)
+        {
+            @Html.ValidationSummary()
+        }
+    </div>
+</div>
+
+<div class="pagenavigation">
+    <ul class="horizontallist">
+        <li><a asp-action="Preview">Back to List</a></li>
+        <li><a asp-controller="Home" asp-action="Index">Back to home</a></li>
+    </ul>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
